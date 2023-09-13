@@ -1,0 +1,677 @@
+ \documentclass[landscape]{slides}
+
+ \usepackage[latin1]{inputenc} % From LaTeX distribution
+ \usepackage{calc}         % From LaTeX distribution
+ \usepackage{graphicx}     % From LaTeX distribution
+ \usepackage{ifthen}       % From LaTeX distribution
+ \usepackage{subfigure}    % From CTAN/macros/latex/contrib/supported/subfigure
+ \usepackage{pst-all}      % From PSTricks
+ \usepackage{pst-poly}     % From pstricks/contrib/pst-poly
+ \usepackage{multido}      % From PSTricks
+ \input{random.tex}        % From CTAN/macros/generic
+
+
+
+\input definitions.tex 
+\input reportdef.tex
+
+ \def\sign{{\bf S}}
+ \def\tnat{{\bf N}}
+
+ \def\lsem{{[\!\![}}
+ \def\rsem{{]\!\!]}}
+
+ \def\alsem{{[\!\![}}
+ \def\arsem{{]\!\!]}^\alpha}
+
+
+ \newcommand {\Vect}[1]{\mbox{$#1_1,#1_2,\cdots,#1_n$}}
+
+ \def\atom{{\sf Atom}}
+ \def\syneq{\equiv}
+
+ \def\thus{\hbox to 12pt{.\raise 4pt \hbox{.}.}}
+
+ \def\therefore{\mbox{$\mathrel{.\dot{~}.}$~}}
+ \def\because{\mbox{$\mathrel{\dot{~}.\dot{~}}$~}}
+
+ \let\l=\langle
+ \let\r=\rangle
+
+ \def\ll{[\![}
+ \def\rr{]\!]}
+ \def\Den#1{\relax\ifmmode \ll #1\rr \else\hbox{$\ll #1\rr$}\fi}
+ \def\defemb#1#2{\expandafter\def\csname #1\endcsname
+			       {\relax\ifmmode #2\else\hbox{$#2$}\fi}}
+
+ % logical connectives
+
+ % universeral p.a.i.
+
+ \def\smallrtimes{{\hspace{-.1em}{\scriptscriptstyle \bullet}}}
+
+ \def\upgamma{{\gamma}^\smallrtimes} 
+ \def\updom{{\cal D}^\smallrtimes} 
+ \def\upleq{{\sqsubseteq}^\smallrtimes} 
+ \def\upbot{{\bot}^\smallrtimes} 
+ \def\uptop{{\top}^\smallrtimes} 
+ \def\uplub{{\sqcup}^\smallrtimes} 
+ \def\upglb{{\sqcap}^\smallrtimes} 
+ \def\upai{{I}^\smallrtimes} 
+ \def\upop{{\cal O}^\smallrtimes}
+ \def\upopb{{\cal O}^\ell}
+ \def\upele{{d}^\smallrtimes}
+ \def\upassign{{\cal A}}
+ \def\uemul{{\propto}^\smallrtimes}
+
+ \def\uppreorder{{\preceq}^\smallrtimes}
+ \def\upequiv{{\thickapprox}^\smallrtimes}
+ \def\upsubsumed{{\unlhd}^\smallrtimes}
+
+ \def\upsetS{\bar{\Phi}_1}
+ \def\upsetR{\bar{\Phi}_2}
+
+ \def\upbdom{{\cal E}}
+ %\def\upbool{{\cal B}^\smallrtimes}
+ \def\upbele{{\bf e}}
+ \def\upcc{{\bf b}}
+ \def\upbecc{{\bar{{\bf e}}}}
+ \def\bphi{\bar{\Phi}}
+
+ % universal m.a.i.
+
+ \def\smalldagger{{\hspace{-.1em}{\scriptscriptstyle \dagger}}}
+
+ \def\umgamma{{\gamma}^\smalldagger} 
+ \def\umdom{{\cal D}^\smalldagger} 
+ \def\umleq{{\sqsubseteq}^\smalldagger} 
+ \def\umbot{{\bot}^\smalldagger} 
+ \def\umtop{{\top}^\smalldagger} 
+ \def\umlub{{\sqcup}^\smalldagger} 
+ \def\umglb{{\sqcap}^\smalldagger} 
+ \def\umai{{I}^\smalldagger} 
+ \def\umop{{\cal O}^\smalldagger}
+ \def\umele{{d}^\smalldagger}
+
+ % universal c.a.i. 
+
+ \def\ucdom{{\cal D}}
+ \def\ucleq{\sqsubseteq} 
+ \def\ucbot{\bot} 
+ \def\uctop{\top} 
+ \def\uclub{\sqcup} 
+ \def\ucbiglub{\bigsqcup} 
+ \def\ucglb{\sqcap} 
+ \def\uci{I} 
+ \def\ucop{{\cal O}}
+ \def\ucele{{d}}
+
+
+ % framework c.a.i.
+
+ \def\cbot{{\emptyset}} 
+ \def\ctop{{Sub}} 
+ \def\club{{\cup}} 
+ \def\cglb{{\cap}} 
+ \def\cleq{{\subseteq}} 
+ \def\csub{{2^{Sub}}} 
+ \def\cunify{{cunify}} 
+ \def\fci{{I}}
+
+ % framework m.a.i.
+
+ \def\fmlub{{\sqcup}} 
+ \def\fmleq{{\sqsubseteq}} 
+ \def\fmsub{{\it ASub}} 
+ \def\fmunify{{\it AUNIFY}} 
+ \def\fmgamma{{\gamma}}
+ %\def\fmai{{I}} 
+
+ % other things
+
+ \def\bBbbk{{\bar{{k}}}}
+
+ \def\inputinfo{{\sf In}}
+ \def\outputinfo{{\sf Out}}
+
+
+ \def\true{{\sl true} }
+ \def\false{{\sl false}}
+ \def\lor{\vee}
+ \def\land{\wedge}
+ \def\lequiv{\leftrightarrow}
+ \def\lbigand{\bigwedge}
+ \def\lbigor{\bigvee}
+ \def\implies{\rightarrow}
+ \def\ensures{\rhd}
+ \def\reducesto{\leadsto}
+
+
+ \def\parfun{\mbox{$\succ\!\!\rightarrow$}}
+ \def\restrict{\mbox{$\mid\hspace{-0.45em} \raise 4pt \hbox{$\scriptscriptstyle \setminus$}$}}
+
+
+ \def\pg{{P}}
+ \def\syneq{\equiv}
+ \def\eqs{{Eq} }
+
+ \def\fail{{ fail}}
+ \def\mgu{{ mgu}}
+
+ \def\func{{ Func} }
+
+ \def\vcal{{\sf V} }
+
+ \def\modeUnify{{aunify}}
+ \def\modeSoln{{ soln}}
+ \def\modeSolve{{ solve}}
+
+ \def\ers{{\cal ER}}
+ \def\srs{{\cal SR}}
+ \def\ims{{\cal IS}}
+
+ \newcommand{\vars}[1]{{\bf V}_{\hspace{-.5ex}#1}}
+ \def\pvars{{\vars{\pg}}}
+
+ \newcommand{\modepart}[1]{{M}_{#1}}
+ \newcommand{\sharepart}[1]{{S}_{#1}}
+ \newcommand{\aliaspart}[1]{{A}_{#1}}
+
+ \def\free{\circled{f}}
+ \def\ground{\circled{g}}
+ \def\other{\circled{o}} 
+
+
+ \def\zcal{{\cal Z}}
+
+ \def\mground{{ grd}}
+
+ \newcommand {\istate}{{\cal I}}
+ \newcommand {\share}{{\cal S}}
+ \newcommand {\alias}{{\cal A}}
+
+ \def\fbeta{\beta^\flat}
+ \def\feta{\eta^\flat}
+ \def\fsigma{\sigma^\flat}
+ \def\ftheta{\theta^\flat}
+ \def\fzeta{\zeta^\flat}
+
+
+
+ \newcommand {\fcomp}{\cdot}
+
+ \newcommand{\point}[1] {\circled{#1}}
+ \newcommand{\edge}[2]{{#1
+       \raisebox{-.2ex}{$\leftarrow\!\!\!\!\bullet$}#2}}
+ \newcommand{\stackitem}[3]{\mbox{$\parallel\edge{#1}{#2},#3\parallel$}}
+
+
+
+ \def\dcal{{\cal D}}
+ \def\scal{{\cal S}}
+ \def\lcal{{\cal L}}
+ \def\vcal{{\cal V}}
+ \def\wcal{{\cal W}}
+ \def\gcal{{\cal G}}
+ \def\ncal{{\cal N}}
+ \def\ecal{{\cal E}}
+ \def\ucal{{\cal U}}
+ \def\ycal{{\cal Y}}
+ \def\zcal{{\cal Z}}
+
+
+ \def\fsem{F^\flat_{P}}
+ \def\fdom{\dcal^\flat}
+ \def\fgamma{\gamma^\flat} 
+ \def\fbigx{X^\flat}
+ \def\fbigy{Y^\flat}
+
+ \def\fbeta{\beta^\flat}
+ \def\feta{\eta^\flat}
+ \def\fsigma{\sigma^\flat}
+ \def\ftheta{\theta^\flat}
+ \def\fzeta{\zeta^\flat}
+ \def\fsqsubseteq{\sqsubseteq^\flat}
+ \def\fsqcap{\sqcap^\flat}
+ \def\fsqcup{\sqcup^\flat}
+ \def\ftop{\top^\flat}
+ \def\fbot{\bot^\flat}
+
+ \def\dsem{F^\diamond_{P}}
+ \def\ddom{\dcal^\diamond}
+ \def\dgamma{\gamma^\diamond}
+ \def\dsigma{\sigma^\diamond}
+ \def\dtheta{\theta^\diamond}
+ \def\dbigx{X^\diamond}
+ \def\dbigy{Y^\diamond}
+ \def\dsqsubseteq{\sqsubseteq^\diamond}
+ \def\dsqcap{\sqcap^\diamond}
+ \def\dsqcup{\sqcup^\diamond}
+ \def\dtop{\top^\diamond}
+ \def\dbot{\bot^\diamond}
+
+ \def\ssem{F^\sharp_{P}}
+ \def\sdom{\dcal^\sharp}
+ \def\sgamma{\gamma^\sharp}
+ \def\sbigx{X^\sharp}
+ \def\sbigy{Y^\sharp}
+ \def\ssqsubseteq{\sqsubseteq^\sharp}
+ \def\ssqcap{\sqcap^\sharp}
+ \def\ssqcup{\sqcup^\sharp}
+ \def\stop{\top^\sharp}
+ \def\sbot{\bot^\sharp}
+
+ \def\unify{unify}
+
+ \def\points{\ncal}
+ \def\edges{\ecal}
+ \def\lfp{{lfp }}
+
+ \def\agamma{{\gamma}}
+ \def\aleq{{\sqsubseteq}}
+ \newcommand{\alub}  {{\sqcup}}
+ \newcommand{\aglb}  {{\sqcap}}
+
+
+ \def\functional{\mbox{\raisebox{0.2ex}{$\scriptstyle\mapsto$}\hspace{-0.9em}$\bigcirc$}}
+ \def\free{\circled{f}}
+ \def\ground{\circled{g}}
+ \def\other{\circled{o}} 
+
+ \def\transfers{\stackrel{P}{\leadsto}}
+
+ \def\allvars{\mbox{$\cal V\!\!A\!R$}}
+
+
+ \def\dcal{{\cal D}}
+ \def\scal{{\cal S}}
+ \def\lcal{{\cal L}}
+ \def\vcal{{\cal V}}
+ \def\wcal{{\cal W}}
+ \def\gcal{{\cal G}}
+ \def\ncal{{\cal N}}
+ \def\ecal{{\cal E}}
+ \def\ucal{{\cal U}}
+ \def\ycal{{\cal Y}}
+ \def\zcal{{\cal Z}}
+
+ \def\fail{{\sf fail}}
+
+
+ \newenvironment{proof}{{\sc Proof:\/}\em }{~\hspace*{\fill}
+   $\rule{1ex}{1.5ex}$\par}
+
+ \newcommand{\proofoflemma}[2] {\underline{{\sc Proof of
+       lemma}~\ref{#1} (p.\pageref{#1})}:\/ #2 ~\hspace*{\fill}
+   $\rule{1ex}{1.5ex}$\par \vspace{1pc}}
+
+ \newcommand{\proofoftheorem}[2] {\underline{{\sc Proof of
+       theorem}~\ref{#1} (p.\pageref{#1})}:\/ #2 ~\hspace*{\fill}
+   $\rule{1ex}{1.5ex}$\par\vspace{1pc}}
+
+ \def\fsem{F^\flat_{P}}
+ \def\fdom{\dcal^\flat}
+ \def\fgamma{\gamma^\flat} 
+ \def\fbigx{X^\flat}
+ \def\fbigy{Y^\flat}
+ \def\fbeta{\beta^\flat}
+ \def\feta{\eta^\flat}
+ \def\fsigma{\sigma^\flat}
+ \def\ftheta{\theta^\flat}
+ \def\fzeta{\zeta^\flat}
+ \def\fsqsubseteq{\sqsubseteq^\flat}
+ \def\fsqcap{\sqcap^\flat}
+ \def\fsqcup{\sqcup^\flat}
+ \def\ftop{\top^\flat}
+ \def\fbot{\bot^\flat}
+
+ \def\dsem{F^\diamond_{P}}
+ \def\ddom{\dcal^\diamond}
+ \def\dgamma{\gamma^\diamond}
+ \def\dsigma{\sigma^\diamond}
+ \def\dtheta{\theta^\diamond}
+ \def\dbigx{X^\diamond}
+ \def\dbigy{Y^\diamond}
+ \def\dsqsubseteq{\sqsubseteq^\diamond}
+ \def\dsqcap{\sqcap^\diamond}
+ \def\dsqcup{\sqcup^\diamond}
+ \def\dtop{\top^\diamond}
+ \def\dbot{\bot^\diamond}
+
+ \def\ssem{F^\sharp_{P}}
+ \def\sdom{\dcal^\sharp}
+ \def\sgamma{\gamma^\sharp}
+ \def\sbigx{X^\sharp}
+ \def\sbigy{Y^\sharp}
+ \def\ssqsubseteq{\sqsubseteq^\sharp}
+ \def\ssqcap{\sqcap^\sharp}
+ \def\ssqcup{\sqcup^\sharp}
+ \def\stop{\top^\sharp}
+ \def\sbot{\bot^\sharp}
+ \def\sunify{unify^\sharp}
+ \def\stackitems{\scal^\sharp}
+
+ \def\sem{F_{P}}
+ \def\dom{\dcal}
+ \def\unify{unify}
+
+
+ \newcommand{\asub}   {{\sf ASub}}
+ \newcommand{\aunify}   {{aunify}}
+ \newcommand{\asubid} {{\sf id}}
+ \newcommand{\abot} {{\bot}}
+
+ \begin{document} 
+
+ \begin{slide}
+
+ \begin{center}{LPANE -- Logic Program ANalysis Engine}\end{center}
+
+ \end{slide}
+
+ \begin{slide} 
+
+ LPANE implements Nilsson's framework (1982) with extensions: 
+ \begin{itemize}
+ \item negation-as-failure;
+ \item builtin predicates;
+ \item bottom-up analysis
+ \end{itemize} 
+
+ LPANE supports reachability analyses -- derives invariants at program
+ points:
+ \begin{itemize} 
+ \item Mode analysis; Type analysis; Sharing analysis;
+ \end{itemize}
+
+ \end{slide} 
+
+ \begin{slide}
+ Negation-as-failure - $\point{p}\backslash+~ A\point{q}$
+ \begin{itemize}
+ \item there is a call edge from $\point{p}$ to the entry point of each clause whose head matches with $A$ -- a negated call propagates information by
+ starting an abstract sub-derivation just as a non-negated call;
+ \item there is no return edge from the exit point of these clauses to $\point{q}$ -- the result of the abstract sub-derivation is ignored;
+ \item these is a ``no-op'' edge from $\point{p}$ to $\point{q}$ -- negation-as-failure is a test. 
+ \end{itemize}
+ \end{slide}
+
+
+ \begin{slide}
+ {Built-in Predicates} $\point{p} b(t) \point{q}$
+ \begin{itemize}
+ \item there is an edge from $\point{p}$ to $\point{q}$ which is labeled with an operation $b(t)$;
+ \item  
+ Given an input abstract substitution $\beta_{i}$, the abstract
+ interpretation returns an output substitution $\beta_{o}$ such that
+ for all $\theta_i$ satisfying $\beta_i$, $\theta_i(b(t))$ succeeds with
+ an answer substitution $\delta$ then $\delta\circ\theta_i$ satisfies
+ $\beta_o$.
+ \end{itemize}
+
+ \end{slide}
+
+ \begin{slide}
+ Work in progress:
+ \begin{itemize} 
+ \item constraints - 
+   replacing substitutions by constraints and unification by conjunction;
+ \item backward analysis - King \& Lu 2002; 
+ \item parametric analysis - Lu 1998 \& 2001;
+ \item context-sensitive analysis - Lu 2002;
+ \item HCI \& Webserver;
+ \end{itemize}
+ \end{slide}
+
+ \begin{slide} Concrete Interpretation
+
+ \[ I_{conc} = \langle (\csub,\cleq), \{\cunify,\club,cbip,\{\epsilon\}\}
+  \rangle\]
+
+
+ $\cunify: \atom\times \csub \times \atom \times \csub
+ \mapsto \csub$:
+\[{\cunify(A,\Theta,B,\Omega)  \definedas} 
+\{\unify(A,\theta,B,\omega)|~\theta\in\Theta\wedge\omega\in\Omega\}\setminus\{\fail\}
+ \]
+\comments{
+ where
+  $\unify:\atom\times Sub\times\atom\times Sub \mapsto Sub$:
+ \begin{eqnarray*}
+ \unify(A,\theta,B,\omega) & \definedas &
+	  mgu(\rho\theta A,\omega B)\circ\omega\\
+	 && where~\rho~is~a~renaming
+ \end{eqnarray*} 
+}
+
+ $cbip:\atom\times\csub$:
+ \[ cbip(A,\Theta) \definedas \{bip(A,\theta)\neq\fail~|~\theta\in\Theta\}
+ \]
+ $bip:\atom\times Sub\mapsto Sub$: $bip(A,\theta)$ returns
+ $\sigma\circ\theta$ if $\theta(A)$ succeeds with answer substitution
+ $\sigma$. It returns $\fail$ otherwise.
+
+ \end{slide}
+
+ \begin{slide} Abstract interpretation
+
+ \[I_{abs} = \langle (\asub,\aleq), \{\aunify,\alub,abip,\asubid\} \rangle\]
+ where
+ \[\begin{array}{lll}
+ \aunify&:& \atom\times \asub \times \atom \times \asub \mapsto \asub\\
+ \alub &:&  \asub \times \asub \mapsto \asub \\
+ abip&:& \atom\times\asub\mapsto \asub
+ \end{array}\] 
+ \end{slide}
+
+
+ \begin{slide}{Local Safety Criteria}
+
+ \begin{itemize} 
+ \item [C1:] $<\asub,\aleq>$ is a
+   complete lattice;
+ \item [C2:] $\agamma: \asub \mapsto 2^{Sub}$ is a monotone;
+ \item [C3:] 
+  \(\cunify(A,\agamma(\ftheta),
+  B,\agamma(\fsigma)) \subseteq \agamma\circ \aunify(A,\ftheta,B,\fsigma)\) for
+  any $\ftheta,\fsigma\in\asub$, and any
+  $A,B\in\atom$; 
+ \item [C4:] \(cbip(A,\agamma(\ftheta))\subseteq \agamma\circ abip(A,\ftheta)\)  ;and 
+ \item [C5:] $\epsilon\in\agamma(\asubid)$. 
+ \end{itemize}  
+ \end{slide}
+
+ \begin{slide} Bottom-up analysis 
+ \begin{itemize}
+ \item No call edges;
+ \item Return edges are as in top-down analysis;
+ \item Abstract identity substitution (true constraint) are associated
+   with the entry point of each clause;
+ \item Unit clauses triggers data flow propagation.
+ \end{itemize}
+
+ \end{slide}
+
+ \begin{slide}
+
+ \begin{pspicture}(0,0)(14,8) %\showgrid
+%   \rput(0,  .5){\rnode{A1}{\psframebox{...}}}
+%   \rput(1.6,.5){\rnode{A2}{\psframebox{mode4}}}
+%   \rput(3.2,  .5){\rnode{A3}{\psframebox{mode8}}}
+%   \rput(4.8,.5){\rnode{A4}{\psframebox{pair}}}
+%   \rput(6.5,  .5){\rnode{A5}{\psframebox{group}}}
+%   \rput(8.5,.5){\rnode{A6}{\psframebox{monotype}}}
+%   \rput(10.3,  .5){\rnode{A7}{\psframebox{rtype}}}
+%   \rput(12,.5){\rnode{A8}{\psframebox{...}}}
+
+   \rput(6.5,  .5){\rnode{A5}{\psframebox{specific analysis}}}
+
+
+   \rput(6.5,3.5){\rnode{D}{\psframebox{domain}}} 
+
+   \ncline{D}{A1}
+   \ncline{D}{A2}
+   \ncline{D}{A3}
+   \ncline{D}{A4}
+   \ncline{D}{A5}
+   \ncline{D}{A6}
+   \ncline{D}{A7}
+   \ncline{D}{A8}
+
+
+  \rput(6.5,5.5){\rnode{L}{\psframebox{lfp}}}  
+  \rput(0,5.5){\rnode{T}{\psframebox{$init\_td$}}}
+  \rput(12.5,5.5){\rnode{B}{\psframebox{$init\_bu$}}}  
+
+
+  \ncline{D}{T}
+  \ncline{D}{B}
+
+
+  \rput(3, 7.5){\rnode{P}{\psframebox{top-down}}} 
+  \rput(10, 7.5){\rnode{S}{\psframebox{bottom-up}}} 
+  \ncline{L}{D}
+  \ncline{D}{P}
+  \ncline{D}{S}
+  \ncline{L}{P}
+  \ncline{L}{S}
+  \ncline{T}{P}
+  \ncline{B}{S}
+ \end{pspicture} 
+
+ \end{slide}
+
+ \begin{slide} {Module {\sf domain}}
+
+ \begin{itemize}
+ \item implements generic abstract domain;
+ \item directs operations to modules for specific analyses;
+ \item \begin{verbatim} 
+ asub_bipai/4, asub_ident/3,    asub_unify/5, 
+ asub_bot/3,   asub_join/4,     asub_leq/3,
+ asub_ext/4,   asub_external/3, asub_apply/4, 
+ asub_housekeep/1 \end{verbatim}
+ \item each predicate implements an operation;
+ \item the first argument identifies analysis to be performed;
+ \end{itemize}
+
+ \end{slide}
+
+ \begin{slide} Module {\sf domain}:
+ \begin{itemize} 
+ \item $asub\_bipai(+\alpha,+A,+\beta_{in},-\beta_{out})$ iff
+ $\beta_{out}=abip(A,\beta_{in})$.
+ \item $asub\_ident(+\alpha,+Vs,-\beta_{out})$ iff $\beta_{out}$ is the
+ identity abstract substitution $\asubid$.
+ \item
+ $asub\_unify(+\alpha,+\beta'_{A},+\theta_{A'B},+\beta_{B},-\beta_{out})$
+ performs abstract unification. For analysis $\alpha$, the operation
+ $\aunify(A,\beta_A,B,\beta_B)$ is reduced to
+ $asub\_unify(\alpha,\beta'_{A},\theta_{A'B},\beta_{B},\beta_{out})$
+ where $\beta'_{A}=\Psi(\beta_{A})$ and $\theta_{A'B}=mgu(\Psi(A),B)$.
+ \item $asub\_bot(+\alpha,+Vs,-\beta_{out})$ iff $\beta_{out}$ is the
+   infimum of the abstract domain.
+ \item $asub\_join(+\alpha,+\beta_{1},+\beta_{2},-\beta_{out})$ iff 
+       $\beta_{out}=\beta_{1}\alub\beta_{2}$.
+ \item $asub\_leq(+\alpha,+\beta_{1},+\beta_{2})$ iff
+       $\beta_{1}\aleq\beta_{2}$.
+ \item $asub\_ext(+\alpha,+\beta_{in},+Vs,-\beta_{out})$ iff
+ $\beta_{in}\aleq\beta_{out}$ and $\beta_{out}$ is an abstract substitution
+ over variables $Vs$. 
+ \item $asub\_external(+\alpha,+\beta_{in},-\beta_{out})$ iff $\beta_{out}$
+       is the external form of $\beta_{in}$. 
+ \item $asub\_apply(+\alpha,+A,+\beta_{in},-Ps)$ iff $Ps$ is a set of
+ patterns that describes the same set of atoms speficied by $A$ and
+ $\beta_{in}$ for analysis $\alpha$. 
+ \item $asub\_housekeep(+\alpha)$ always succeeds. 
+ Does housekeeping. 
+ \end{itemize}
+ \end{slide}
+
+
+ \begin{slide}{Adding Analysis $\alpha$}
+
+
+ \begin{itemize}
+ \item For $asub\_unify(+\alpha,+\beta'_{A},+\theta_{A'B},+\beta_{B},-\beta_{out})$,
+ \begin{itemize}
+ \item  module $\alpha$ has 
+ \begin{itemize}
+ \item $\alpha\_comb(+\beta_1,+\beta_2,-\beta_{out})$ iff
+ $\beta_{out}$ is the conjunction of $\beta_1$ and $\beta_2$.       
+ \item $\alpha\_solve(+\theta,+\beta_{in},-\beta_{out})$  iff 
+ $\beta_{out}$ approximates 
+ both $\beta_{in}$ and  $\theta$.  
+ \item $\alpha\_rest(+\beta_{in},-\beta_{out})$ iff $\beta_{out}$ is the
+ restriction of $\beta_{in}$ to program variables. 
+ \end{itemize} 
+ \item module {\sf domain} contains a clause
+ \begin{eqnarray*}
+ \lefteqn{
+  asub\_unify(\alpha,\beta'_{A},\theta_{A'B},\beta_{B},\beta_{out}) \mbox{:-}}\\
+ &&  \alpha\_comb(\beta'_{A},\beta_{B},\eta),\\
+ &&  \alpha\_solve(\theta_{A'B},\eta,\zeta),\\
+ &&  \alpha\_rest(\zeta,\beta_{out}).
+ \end{eqnarray*}
+ \end{itemize}
+
+ \item For other predicate $asub\_OP(\alpha,arg_1,\cdots,arg_k)$,
+ \begin{itemize} 
+ \item module $\alpha$ has  $\alpha\_OP(arg_1,\cdots,arg_k)$;
+ \item module {\sf domain} has a clause 
+ \begin{eqnarray*}
+ \lefteqn{asub\_OP(\alpha,arg_1,\cdots,arg_k)}\\
+  && \mbox{:-} \alpha\_OP(arg_1,\cdots,arg_k).
+ \end{eqnarray*}
+ \end{itemize} 
+ \end{itemize}
+
+ \end{slide}
+
+ \begin{slide} Module $\alpha$: 
+ \begin{itemize} 
+\item $\alpha\_bipai(+A,+\beta_{in},-\beta_{out})$ iff
+$\beta_{out}=abip(A,\beta_{in})$
+\item $\alpha\_ident(+Vs,-\beta_{out})$ iff $\beta_{out}$ is the
+identity abstract substitution over Vs. 
+\item $\alpha\_comb(+\beta_1,+\beta_2,-\beta_{out})$ iff
+$\beta_{out}$ is the conjunction of   $\beta_1$ and $\beta_2$.       
+\item $\alpha\_solve(+\theta,+\beta_{in},-\beta_{out})$  iff 
+$\beta_{out}$ describes the set of substitutions satisfying 
+both $\beta_{in}$ and the equational constraint $\theta$.  
+\item $\alpha\_rest(+\beta_{in},-\beta_{out})$ iff $\beta_{out}$ is the
+restriction of $\beta_{in}$ to program variables. 
+\item $\alpha\_bot(+Vs,-\beta_{out})$ iff $\beta_{out}$ is the
+smallest  abstract substitution
+\item $\alpha\_join(+\beta_{1},+\beta_{2},-\beta_{out})$ iff 
+      $\beta_{out}=\beta_{1}\alub\beta_{2}$
+\item $\alpha\_leq(+\beta_{1},+\beta_{2})$ iff
+      $\beta_{1}\aleq\beta_{2}$
+\item $\alpha\_ext(+\beta_{in},+Vs,-\beta_{out})$ iff
+$\beta_{in}\aleq\beta_{out}$ and $\beta_{out}$ is an abstract substitution
+over variables $Vs$
+\item $\alpha\_external(+\beta_{in},-\beta_{out})$ iff $\beta_{out}$
+      is the external form of $\beta_{in}$. 
+\item $\alpha\_apply(+A,+\beta_{in},-Ps)$ iff $Ps$ is a set of
+patterns that describes the same set of atoms speficied by $A$ and
+$\beta_{in}$ 
+\item $\alpha\_housekeep$ always succeeds doing housekeeping 
+\end{itemize}
+\end{slide}
+
+\begin{slide}
+Analyses supported:
+
+\begin{itemize}
+\item Sharing analysis: pair sharing \& group sharing;
+\item Mode analysis: 2 modes (groundness), 4 modes (groundess +
+  freeness), 8 modes;
+\item Type analysis: deterministic, regular and parametric type
+  analyses
+\end{itemize}
+
+\end{slide}
+
+
+\end{document}
+

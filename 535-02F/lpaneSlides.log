@@ -1,0 +1,438 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2016.5.6)  6 SEP 2017 10:25
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**lpaneSlides.tex
+(./lpaneSlides.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/slides.cls
+Document Class: slides 1997/08/15 v2.3z Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/slides.def
+File: slides.def 1997/08/15 v2.3z SLiTeX definitions
+ hacks, slides,
+\c@page=\count79
+
+picture, mods,
+\@smashboxa=\box26
+\@smashboxb=\box27
+\@smashboxc=\box28
+ output, init)
+(/usr/share/texlive/texmf-dist/tex/latex/base/sfonts.def
+File: sfonts.def 1998/06/12 v2.2e Standard LaTeX slide font definitions
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1lcmss.fd
+File: ot1lcmss.fd 1998/06/12 v2.2e Standard LaTeX slide font definitions
+))
+\c@minutes=\count80
+\c@seconds=\count81
+\c@mv@invisible=\count82
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/n on input line 369.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lcmm/m/it on input line 372.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/n on input line 374.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/n on input line 376.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `invisible'
+(Font)                  OT1/cmr/m/n --> OT1/lcmss/m/In on input line 379.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `invisible'
+(Font)                  OML/cmm/m/it --> OML/lcmm/m/Iit on input line 381.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `invisible'
+(Font)                  OMS/cmsy/m/n --> OMS/lcmsy/m/In on input line 383.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `invisibl
+e'
+(Font)                  OMX/cmex/m/n --> OMX/lcmex/m/In on input line 385.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count83
+\calc@Bcount=\count84
+\calc@Adimen=\dimen102
+\calc@Bdimen=\dimen103
+\calc@Askip=\skip41
+\calc@Bskip=\skip42
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count85
+\calc@Cskip=\skip43
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count86
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/SECS/home/l/l2lu/Tex/subfigure.sty
+Package: subfigure 1995/03/06 v2.0 subfigure package
+
+Package: subfigure 1995/03/06 v2.0
+\c@subfigure=\count87
+
+! LaTeX Error: No counter 'figure' defined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.70 \newcounter{subfigure}[figure]
+                                   
+? r
+OK, entering \nonstopmode...
+\c@lofdepth=\count88
+\c@subtable=\count89
+
+! LaTeX Error: No counter 'table' defined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.79 \newcounter{subtable}[table]
+                                 
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+\c@lotdepth=\count90
+) (/usr/share/texlive/texmf-dist/tex/latex/pstricks/pst-all.sty
+Package: pst-all 2008/01/01 the main pstricks tools
+
+(/usr/share/texlive/texmf-dist/tex/latex/pstricks/pstricks.sty
+Package: pstricks 2013/04/05 v0.54 LaTeX wrapper for `PSTricks' (RN,HV)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pstricks.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/pst-xkey.tex
+File: pst-xkey.tex 2005/11/25 v1.6 PSTricks specialization of xkeyval (HA)
+
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
+
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+\XKV@toks=\toks17
+\XKV@tempa@toks=\toks18
+\XKV@depth=\count91
+File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pst-fp.tex
+`pst-fp' v0.05, 2010/01/17 (hv)
+\pstFP@xs=\count92
+\pstFP@xia=\count93
+\pstFP@xib=\count94
+\pstFP@xfa=\count95
+\pstFP@xfb=\count96
+\pstFP@rega=\count97
+\pstFP@regb=\count98
+\pstFP@regs=\count99
+\pstFP@times=\count100
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks19
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks20
+\pgfkeys@temptoks=\toks21
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.t
+ex
+\pgfkeys@tmptoks=\toks22
+)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+\pgffor@iter=\dimen106
+\pgffor@skip=\dimen107
+\pgffor@stack=\toks23
+\pgffor@toks=\toks24
+)
+\psLoopIndex=\count101
+
+`PSTricks' v2.40  <2013/04/05> (tvz)
+\pst@dima=\dimen108
+\pst@dimb=\dimen109
+\pst@dimc=\dimen110
+\pst@dimd=\dimen111
+\pst@dimg=\dimen112
+\pst@dimh=\dimen113
+\pst@dimm=\dimen114
+\pst@dimn=\dimen115
+\pst@dimo=\dimen116
+\pst@dimp=\dimen117
+\pst@hbox=\box29
+\pst@ibox=\box30
+\pst@boxg=\box31
+\pst@cnta=\count102
+\pst@cntb=\count103
+\pst@cntc=\count104
+\pst@cntd=\count105
+\pst@cntg=\count106
+\pst@cnth=\count107
+\pst@cntm=\count108
+\pst@cntn=\count109
+\pst@cnto=\count110
+\pst@cntp=\count111
+\@zero=\count112
+\pst@toks=\toks25
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pstricks.con)
+\psunit=\dimen118
+\psxunit=\dimen119
+\psyunit=\dimen120
+\pst@C@@rType=\count113
+\pslinewidth=\dimen121
+\psk@startLW=\dimen122
+\psk@endLW=\dimen123
+\pst@customdefs=\toks26
+\pslinearc=\dimen124
+\pst@symbolStep=\dimen125
+\pst@symbolWidth=\dimen126
+\pst@symbolLinewidth=\dimen127
+\everypsbox=\toks27
+\psframesep=\dimen128
+\pslabelsep=\dimen129
+\sh@wgridXunit=\dimen130
+\sh@wgridYunit=\dimen131
+\pst@shift=\dimen132
+\theoverlaybox=\box32
+)
+File: pstricks.tex 2013/04/05 v2.40 `PSTricks' (tvz,hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pst-fp.tex)
+File: pst-fp.tex 2013/04/05 v2.40 `PST-fp' (hv)
+
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/pst-plot/pst-plot.sty
+Package: pst-plot 2011/06/05 v1.00 LaTeX wrapper for `pst-plot' (HV)
+
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/pst-xkey.sty
+Package: pst-xkey 2005/11/25 v1.6 package wrapper for pst-xkey.tex (HA)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/multido/multido.sty
+Package: multido 2004/05/17 package wrapper for PSTricks `multido.tex', (HV/RN)
+
+
+(/usr/share/texlive/texmf-dist/tex/generic/multido/multido.tex
+ v1.42, 2010/05/14 <tvz>
+\multido@count=\count114
+\multidocount=\count115
+\multido@stuff=\toks28
+)
+File: multido.tex 2010/05/14 v1.42 `multido' (tvz,hv)
+)
+Package: pst-plot 2011/04/13 package wrapper for pst-plot.tex (hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-plot/pst-plot.tex
+ v1.44, 2013/01/03 (tvz,hv)
+\pstRadUnit=\dimen133
+\pstRadUnitInv=\dimen134
+\pst@linecnt=\count116
+\psxlabelsep=\dimen135
+\psylabelsep=\dimen136
+\psk@subticksize=\dimen137
+\pst@xticksizeA=\dimen138
+\pst@xticksizeB=\dimen139
+\pst@xticksizeC=\dimen140
+\pst@yticksizeA=\dimen141
+\pst@yticksizeB=\dimen142
+\pst@yticksizeC=\dimen143
+\@digitcounter=\count117
+\psk@llx=\dimen144
+\psk@lly=\dimen145
+\psk@urx=\dimen146
+\psk@ury=\dimen147
+\pst@xunit=\dimen148
+\pst@yunit=\dimen149
+)
+File: pst-plot.tex 2013/01/03 1.44 `pst-plot' (tvz,hv)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-node/pst-node.sty
+Package: pst-node 2012/09/18 v1.01 LaTeX wrapper for `pst-node' (HV)
+Package: pst-node 2010/04/22 package wrapper for pst-node.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-node/pst-node.tex
+ v1.25, 2012/09/21
+\psrow=\count118
+\pscol=\count119
+\psmatrixcnt=\count120
+\psrowsep=\skip44
+\pscolsep=\skip45
+\pst@args=\count121
+\num@pts=\count122
+\pst@argcnt=\count123
+)
+File: pst-node.tex 2012/09/21 1.25 `pst-node' (tvz,hv)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-tree/pst-tree.sty
+Package: pst-tree 2009/01/25 package wrapper for pst-tree.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-tree/pst-tree.tex
+ v1.12, 2011/02/28(tvz,dg,hv)
+\pstree@rootbox=\box33
+\pstree@box=\box34
+\psnodecnt=\count124
+\pstreelevel=\count125
+\pstreecnt=\count126
+\pstree@cnt=\count127
+\pstree@stop=\count128
+)
+File: pst-tree.tex 2011/02/28 1.12 `pst-tree' (tvz,hv)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-grad/pst-grad.sty
+Package: pst-grad 2004/07/15 package wrapper for pst-grad.tex (hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-grad/pst-grad.tex
+`pst-grad' v1.06, 2006/11/27 (tvz,dg,hv))
+File: pst-grad.tex 2006/11/27 1.06 `pst-grad' (tvz)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-coil/pst-coil.sty
+Package: pst-coil 2010/02/01 package wrapper for pst-coil.tex (hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-coil/pst-coil.tex
+ v1.06, 2006/11/27
+(/usr/share/texlive/texmf-dist/tex/generic/pst-node/pst-node.tex))
+File: pst-coil.tex 2011/09/17 v1.06 `PST-coil' (tvz,hv)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-text/pst-text.sty
+Package: pst-text 2006/01/01 package wrapper for pst-text.tex (hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-text/pst-text.tex
+ v1.00, 2006/11/05(tvz,hv))
+File: pst-text.tex 2006/11/05 1.00 `pst-text' (tvz)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-3d/pst-3d.sty
+Package: pst-3d 2009/07/28 package wrapper for pst-3d.tex (hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-3d/pst-3d.tex
+`PST-3d' v1.11, 2010/02/14 (tvz))
+File: pst-3d.tex 2010/02/14 v1.11 `PST-3d' (hv)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-eps/pst-eps.sty
+Package: pst-eps 2005/05/20 package wrapper for pst-eps.tex (hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-eps/pst-eps.tex
+ v1.00, 2006/11/04
+\pst@epsout=\write3
+\pst@tempout=\write4
+)
+File: pst-eps.tex 2006/11/04 1.00 `pst-eps' (tvz)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pst-fill/pst-fill.sty
+Package: pst-fill 2005/09/13 package wrapper for pst-fill.tex (hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-fill/pst-fill.tex
+`PST-Fill' v1.01, 2007/03/10 (tvz,dg,hv)
+\pst@fillbox=\box35
+)
+File: pst-fill.tex 2007/03/10 v1.01 `PST-fill' (tvz,dg)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pstricks-add/pstricks-add.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pst-math/pst-math.sty
+Package: pst-math 2009/01/20 package wrapper for PSTricks pst-math.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pst-math/pst-math.tex
+`pst-math' v0.62 , (CJ,hv))
+File: pst-math.tex 2010/10/20 v0.62 `PST-math' (hv)
+)
+Package: pstricks-add 2010/02/11 v. 0.14 package wrapper for pstricks-add.tex (
+hv)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks-add/pstricks-add.tex
+`pstricks-add' v3.60, 2013/01/01 (dr,hv)
+\psparallelogramsep=\dimen150
+\pshooklength=\dimen151
+\pshookwidth=\dimen152
+\pst@cntC=\count129
+\chart@ColorIndex=\dimen153
+\chart@ColorStep=\dimen154
+\pst@chartHeight=\dimen155
+\pst@chartStackDepth=\dimen156
+\pst@chartStackWidth=\dimen157
+\chart@Toggle=\count130
+\psVectorCtr=\count131
+)
+File: pstricks-add.tex 2013/01/01 v3.60 `PSTricks-add' (hv)
+)) (/SECS/home/l/l2lu/Tex/pst-poly.sty
+Package: pst-poly 2009/12/20 package wrapper for pst-poly.tex (dg,hv)
+(/SECS/home/l/l2lu/Tex/pst-poly.tex `PST-Polygon' v1.4, 98/07/09 (Denis Girou)
+(/usr/share/texlive/texmf-dist/tex/generic/pstricks/pst-key.tex
+keyval: 1998/07/23 v1.11 key=value parser (DPC)
+)
+\psl@PolyIntermediatePoint=\dimen158
+)
+File: pst-poly.tex 98/07/09 v1.4 `PST-poly' (dg,hv)
+)
+(/SECS/home/l/l2lu/Tex/random.tex
+\randomi=\count132
+\ranval=\count133
+)
+! I can't find file `definitions.tex'.
+l.15 \input definitions.tex
+                           
+(Press Enter to retry, or Control-D to exit)
+Please type another input file name
+! Emergency stop.
+l.15 \input definitions.tex
+                           
+*** (job aborted, file error in nonstop mode)
+
+ 
+Here is how much of TeX's memory you used:
+ 6006 strings out of 495063
+ 95797 string characters out of 3182202
+ 225162 words of memory out of 3000000
+ 9080 multiletter control sequences out of 15000+200000
+ 3942 words of font info for 15 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 44i,1n,54p,631b,38s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!
