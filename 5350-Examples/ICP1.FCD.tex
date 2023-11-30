@@ -1,0 +1,56 @@
+\documentclass{beamer}
+\usepackage{tikz}
+\usetikzlibrary{trees,shapes.geometric, positioning, calc}
+
+\begin{document}
+
+\tikzstyle{point} = [circle, inner sep=0pt, minimum size =1pt,  fill=black]
+\tikzstyle{process} = [rectangle, text centered, inner sep=1pt,  draw=black,fill=gray!50]
+
+\tikzstyle{io} = [rectangle, rounded corners, text centered, inner ysep=5pt,   path picture={ \draw[black] (current bounding box.north) ++(0,-1pt)  circle (1pt) -- ++(0,-3pt); \fill [black] (current bounding box.south) ++(0,1pt) circle (1pt); \draw[black,fill=green!20]  ($(current bounding box.south west) + (0,2pt)$)  rectangle  ($(current bounding box.north east) - (0,4pt)$);  }]
+
+\tikzstyle{decision} = [diamond, aspect=2,  text centered,  draw=black, fill=red!30]
+
+\tikzstyle{stop} = [rectangle, rounded corners,  text centered,  draw=black, fill=red!50]
+\tikzstyle{start} = [rectangle, rounded corners,  text centered, draw=black, fill=green]
+
+\begin{tikzpicture}[node distance = 2cm]
+
+\def\entryfill{white}
+\def\exitfill{black}
+\tikzstyle{myarrow} = [->, blue, >=latex]
+
+\matrix[row sep =5mm,column sep=15mm]{
+\node(vert1)[start]{Main() is}; & & \node(vert11)[start]{addOne(val x, res y) is};\\
+\node(vert7)[process]{a:=6}; & & \node(vert13)[process]{y:=x+1};\\
+\node(vert6)[process]{addOne(a,b)}; & &\node(vert12)[stop]{end}; \\
+\node(vert5)[process]{c:=b-3}; & &\\
+\node(vert4)[process]{ten(b)};& & \node(vert21)[start]{ten(res z) is};\\
+\node(vert3)[process]{c:=a*b};& & \node(vert23)[process]{z:=10};\\
+\node(vert2)[stop]{end}; & & \node(vert22)[stop]{end};\\
+};
+
+\draw [myarrow]  (vert4.north east) -- (vert21);
+\draw [myarrow]  (vert22) -- (vert4.south east);
+
+\draw [myarrow]  (vert6.north east) -- (vert11.west);
+\draw [myarrow]  (vert12) -- (vert6.south east);
+
+\draw [myarrow]  (vert21.south) -- (vert23.north);
+\draw [myarrow]  (vert23.south) -- (vert22.north);
+
+
+\draw [myarrow]  (vert11.south) -- (vert13.north);
+\draw [myarrow]  (vert13.south) -- (vert12.north);
+
+\draw [myarrow]  (vert7.south) -- (vert6.north);
+\draw [myarrow]  (vert6.south) -- (vert5.north);
+\draw [myarrow]  (vert5.south) -- (vert4.north);
+\draw [myarrow]  (vert4.south) -- (vert3.north);
+\draw [myarrow]  (vert1.south) -- (vert7.north);
+\draw [myarrow]  (vert3.south) -- (vert2.north);
+
+
+\end{tikzpicture}
+\end{document}
+

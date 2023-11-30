@@ -1,0 +1,62 @@
+\documentclass{beamer}
+\usepackage{tikz}
+\usetikzlibrary{trees,shapes.geometric, positioning, arrows}
+
+\begin{document}
+
+\tikzstyle{state} = [circle, inner sep=2pt, radius =20pt, text centered, draw=black,  fill=blue!50]
+\tikzstyle{point} = [circle, inner sep=0pt, minimum size =1pt,fill]
+\tikzstyle{myarrow} = [->, >=latex]
+
+\begin{tikzpicture}[node distance = 2cm, >=latex]
+\matrix[row sep =5em,column sep=5em]{
+ &\node(vert16)[state]{1}; & & &\\
+ &\node(vert15)[state]{2}; & & &\\
+ &\node(vert12)[state]{3}; &\node(vert9)[state]{6}; & \node(vert6)[state]{7}; &\node(vert3)[state]{10};  \\
+ \node(vert10)[state]{5}; &\node(vert11)[state]{4};& \node(vert4)[state]{9}; &\node(vert5)[state]{8}; &\node(vert2)[state]{11};\\
+};
+
+\draw [myarrow]  (vert16)  --  node[sloped, above]{y:=x} (vert15);
+\draw [myarrow]  (vert11)  --  node[sloped, above]{z:=z*y} (vert10);
+\draw [myarrow]  (vert12)  -- node[sloped,above]{$y>0$}  (vert11);
+\draw [myarrow]  (vert12)  -- node[sloped,above]{$!(y>0)$}  (vert9);
+\draw [myarrow]  (vert10) --  node[sloped, above]{y:=y-1} (vert12);
+\draw [myarrow]  (vert15)  --  node[sloped, above]{z:=1} (vert12);
+\draw [myarrow]  (vert5)  --  node[sloped, near start,above]{z:=z*x} (vert4);
+\draw [myarrow]  (vert6)  -- node[sloped,above]{$x>0$}  (vert5);
+\draw [myarrow]  (vert6)  -- node[sloped,above]{$!(x>0)$}  (vert3);
+\draw [myarrow]  (vert4) --  node[sloped, above]{x:=x-1} (vert6);
+\draw [myarrow]  (vert9)  --  node[sloped, above]{y:=1} (vert6);
+\draw [myarrow]  (vert3)  --  node[sloped, above]{x:=0} (vert2);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[node distance = 2cm, >=latex]
+\matrix[row sep =5em,column sep=5em]{
+ &\node(vert16)[state]{1}; & & &\\
+ &\node(vert15)[state]{2}; & & &\\
+ &\node(vert12)[state]{3}; &\node(vert9)[state]{6}; & \node(vert6)[state]{7}; &\node(vert3)[state]{10};  \\
+ \node(vert10)[state]{5}; &\node(vert11)[state]{4};& \node(vert4)[state]{9}; &\node(vert5)[state]{8}; &\node(vert2)[state]{11};\\
+};
+
+\draw [myarrow]  (vert10) --  node[sloped, above]{y5} (vert12);
+\draw [myarrow]  (vert16)  --  node[sloped, above]{y1} (vert15);
+\draw [myarrow]  (vert15)  --  node[sloped, above]{z2} (vert12);
+\draw [myarrow]  (vert11)  --  node[sloped, above]{z4} (vert10);
+
+\draw [myarrow]  (vert12)  -- node[sloped,above]{id}  (vert9);
+\draw [myarrow]  (vert12)  -- node[sloped,above]{id}  (vert11);
+\draw [myarrow]  (vert6)  -- node[sloped,above]{id}  (vert5);
+\draw [myarrow]  (vert6)  -- node[sloped,above]{id}  (vert3);
+
+\draw [myarrow]  (vert5)  --  node[sloped, near start,above]{z8} (vert4);
+\draw [myarrow]  (vert9)  --  node[sloped, above]{y6} (vert6);
+
+\draw [myarrow]  (vert4) --  node[sloped, above]{x9} (vert6);
+
+\draw [myarrow]  (vert3)  --  node[sloped, above]{x10} (vert2);
+\end{tikzpicture}
+
+\end{document}
+

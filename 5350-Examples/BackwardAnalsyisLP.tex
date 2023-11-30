@@ -1,0 +1,1063 @@
+\documentclass{beamer}
+
+\usepackage{color}
+
+
+\definecolor{light}{gray}{0.5}
+
+\newenvironment{tightdescription}{\begin{description}%
+                          \setlength{\parskip 0pt}%
+                          \setlength{\topsep 0pt}%
+                          \setlength{\itemsep 2pt}%
+                          \setlength{\partopsep 0pt}}%
+                         {\end{description}}
+\newenvironment{tightitemize}{\begin{description}%
+                          \setlength{\parskip 0pt}%
+                          \setlength{\topsep 0pt}%
+                          \setlength{\itemsep 2pt}%
+                          \setlength{\partopsep 0pt}}%
+                         {\end{description}}
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{stmaryrd}
+
+
+
+
+
+\def\mindthegap     {-0.275ex}
+\def\true{{\it true}}
+\def\false{{\it false}}
+
+
+
+\def\lor{\vee}
+\def\land{\wedge}
+
+
+\def\tand{{\sqcap} }
+\def\tor{{\sqcup} }
+
+
+\def\tlist{{\it l\color{light}ist}}
+\def\ttree{{\it t\color{light}ree}}
+
+\def\pspace{\vspace*{\fill}}
+
+\def\separate       {\diamond}
+
+\newcommand\comments[1]{}
+
+
+\def\neck           {{\, \mbox{:-} \,}}
+\def\upright{\|}
+
+\begin{document}
+
+\begin{frame}{Astrid Younang}
+
+{\large\bf Static Analysis of JavaScript Programs
+}
+\begin{itemize}
+\item Improving Precision of Java Script Program Analysis with an Extended Domain of Intervals. COMPSAC 2015: 441-446
+\item Conventionality analysis of array objects in JavaScript. SANER 2017: 561-562
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Nabil Almashfi}
+
+{\large\bf Precise Static Analysis of
+JavaScript Programs
+}
+
+\begin{itemize}
+  \item Precise String Analysis for JavaScript Programs Using Automata. ICSCA 2019: 159-166
+  \item Analyzing JavaScript Programs Using Octagon Domain. CATA 2019: 155-167
+  \item Precise String Domain for Analyzing JavaScript Arrays and Objects. ICICT 2020: 17-23
+  \item Code Smell Detection Tool for Java Script Programs. ICCCS 2020: 172-176
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Assad Maalouf}
+
+{\large\bf STATIC ANALYSIS OF ANDROID PROGRAMS
+FOR MALWARE DETECTION}
+
+\begin{itemize}
+\item Taint analysis of arrays in Android applications. SAC 2021: 893-899
+\item Precise Command Injection Analysis in Android Applications. ICMSS 2021: 1-7
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{}
+
+\begin{center}
+{\large\bf Backward Analysis for Logic Programs}
+\end{center}
+
+\begin{center}
+Lunjin Lu @ Oakland University \\
+Presenting \\
+Joint work with Andy King @ University of Kent
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Static Program Analysis}
+\pspace
+
+\begin{minipage}[t]{.45\textwidth}
+What is static analysis?
+\begin{quote}
+Compute at compile-time safe approximations to the set of program
+behaviors arising at run-time.
+\end{quote}
+\end{minipage} \hspace{\fill}
+\begin{minipage}[t]{.45\textwidth}
+Why static analysis
+\begin{tightdescription}
+    \item[1] Compiler-time program transformations
+    \item[2] Partial evaluation
+    \item[3] Debugging
+    \item[4] ...
+\end{tightdescription}
+
+\end{minipage}
+
+
+
+\pspace
+\end{frame}
+
+
+\begin{frame}[fragile]{Logic Programs}
+\pspace
+
+\begin{minipage}[t]{.45\textwidth}
+A logic program describes properties of and relationships between
+entities.
+\end{minipage}\hspace{\fill}
+\begin{minipage}[t]{.45\textwidth}
+
+\begin{semiverbatim}
+parent(X,Y) :- father(X,Y).
+parent(X,Y) :- mother(X,Y).
+
+father(peter,mary).
+father(peter,john).
+mother(anne,john).
+
+\end{semiverbatim}
+
+\end{minipage}
+
+
+
+\pspace
+\end{frame}
+
+\begin{frame}[fragile]{Model and Operational Semantics}
+\pspace
+
+\begin{minipage}[t]{.45\textwidth}
+Model: all ground atoms that can be proved using the program as
+the theory. \vspace{1pc}
+
+\begin{semiverbatim}
+  father(peter,mary)
+  father(peter,john)
+  mother(anne,john)
+  parent(peter,mary)
+  parent(peter,john)
+  parent(anne,john)
+\end{semiverbatim}
+\end{minipage} \hspace{\fill}
+\begin{minipage}[t]{.45\textwidth}
+Operational: state machine
+\[ \begin{array}{c}
+\langle parent(X,john),\{\}\rangle \\
+
+\Downarrow  \\
+
+\langle father(X,Y) , \{Y\mapsto john\} \rangle \\
+
+\Downarrow \\
+
+\langle true, \{X\mapsto peter,Y\mapsto john\} \rangle \\
+\end{array}
+\]
+\end{minipage}
+
+
+\pspace
+\end{frame}
+
+
+\begin{frame}{Talk Plan}
+\begin{itemize}
+\item Motivation for backward analysis
+
+\item Backward Mode Inference
+
+\item Determinacy Inference
+
+\item Backward analysis on Non-cHa domains
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Forward versus Backward Analysis}
+\vspace{\fill}
+
+\begin{minipage}{0.45\textwidth}
+Forward analysis
+\begin{itemize}
+\item Given  a program and  a set of initial states, derive the
+set of reachable states. 
+\item Compute the (strongest) post-condition given the
+pre-condition.
+\end{itemize}
+\end{minipage} \hspace{\fill}
+\begin{minipage}{0.45\textwidth}
+Backward analysis
+\begin{itemize}
+    \item Given a program and a set of allowable states, derive a set of initial states such that all reachable program states are allowed.
+    \item Compute the (weakest) pre-condition given the post-condition.
+\end{itemize}
+\end{minipage}
+
+\vspace{\fill}
+
+\end{frame}
+
+\begin{frame}{Motivation for backward analysis}
+\vspace{\fill}
+
+\begin{itemize}
+    \item Under what condition, will the program terminate?
+    \item When will the program be determinate?
+    \item For which initial queries, a given pair of calls can be executed in parallel?
+    \item When will a program not leak secure information?
+\end{itemize}
+
+\vspace{\fill}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Backward mode inference 1}
+
+\vspace{\fill}
+
+\begin{minipage}[t]{.45\textwidth}
+\begin{semiverbatim}
+pt([],_,[],[]).
+
+pt([X|Xs],M,[X|L],H) :-
+     M =< X,
+     pt(Xs,M,L,H).
+
+pt([X|Xs],M,L,[X|H]) :-
+     M > X,
+     pt(Xs,M,L,H).
+\end{semiverbatim}
+\end{minipage}
+\hspace{\fill}
+\begin{minipage}[t]{.50\textwidth}
+\begin{semiverbatim} \footnotesize
+| ?- pt([2,1,3], M, L1, L2).
+
+!Instantiation error in arg 1 of =</2
+
+!goal:  _76=<2
+
+| ?- pt([2,1,3],2,L1,L2).
+L1 = [2,3], L2 = [1] ? ;
+no
+\end{semiverbatim}
+\end{minipage}
+
+\vspace{\fill}
+\end{frame}
+
+\begin{frame}[fragile]{Backward mode inference 2}
+\vspace{\fill}
+
+\begin{minipage}[t]{.45\textwidth}
+\begin{semiverbatim}
+pt([],_,[],[]).
+
+pt([X|Xs],M,[X|L],H) :-
+     M =< X,
+     pt(Xs,M,L,H).
+
+pt([X|Xs],M,L,[X|H]) :-
+     M > X,
+     pt(Xs,M,L,H).
+\end{semiverbatim}
+\end{minipage} \hspace{\fill}
+\begin{minipage}[t]{.45\textwidth}
+\begin{semiverbatim}
+pt(T1,T2,T3,T4) :-
+     T1=[],T3=[],T4=[].
+pt(T1,M,T2,H) :-
+     T1 = [X|Xs],
+     T2 = [X|L],
+     M =< X,
+     pt(Xs,M,L,H).
+pt(T1,M,L,T2) :-
+     T1 = [X|Xs],
+     T2 = [X|H],
+     M > X,
+     pt(Xs,M,L,H).
+\end{semiverbatim}
+\end{minipage}
+\vspace{\fill}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Backward mode inference 3}
+\vspace{\fill}
+
+\begin{minipage}[t]{.35\textwidth}
+\begin{semiverbatim}
+pt(T1,T2,T3,T4) :-
+     T1=[],T3=[],T4=[].
+pt(T1,M,T2,H) :-
+     T1 = [X|Xs],
+     T2 = [X|L],
+     M =< X,
+     pt(Xs,M,L,H).
+pt(T1,M,L,T2) :-
+     T1 = [X|Xs],
+     T2 = [X|H],
+     M > X,
+     pt(Xs,M,L,H).
+\end{semiverbatim}
+\end{minipage} \hspace{\fill}
+\begin{minipage}[t]{.55\textwidth}
+\begin{itemize}
+    \item Calculate success patterns ignoring mode requirements of $\leq$ and $>$:
+    \begin{itemize} \small
+        \item \(S_0 = \{\langle pt(w,x,y,z), false\rangle\}\)
+        \item \(S_1 = \{\langle pt(w,x,y,z), w\wedge y\wedge z\rangle\}\)
+        \item \(S_2 = \{\langle pt(w,x,y,z), w\Leftrightarrow(y\wedge z)\rangle\}\)
+        \item \(lfp(S) = S_3 = S_2\)
+    \end{itemize}
+    \item Whenever the goal pt(w,x,y,z) succeeds,
+        then w is bound to a ground term iff y and z are both
+        ground.
+\end{itemize}
+
+\end{minipage}
+
+
+
+\vspace{\fill}
+
+\end{frame}
+
+\begin{frame}[fragile]{Backward mode inference 4}
+\vspace{\fill}
+
+\begin{minipage}[t]{.35\textwidth}
+\begin{semiverbatim}
+pt(T1,T2,T3,T4) :-
+     T1=[],T3=[],T4=[].
+pt(T1,M,T2,H) :-
+     T1 = [X|Xs],
+     T2 = [X|L],
+     M =< X,
+     pt(Xs,M,L,H).
+pt(T1,M,L,T2) :-
+     T1 = [X|Xs],
+     T2 = [X|H],
+     M > X,
+     pt(Xs,M,L,H).
+\end{semiverbatim}
+
+\[ lfp(S)=
+\{\langle pt(w,x,y,z), w\Leftrightarrow(y\wedge z)\rangle\}\]
+\end{minipage} \hspace{\fill}
+\begin{minipage}[t]{.55\textwidth}
+\begin{itemize}
+    \item Calculate safe call patterns by considering  mode requirements of $\leq$ and $>$:
+    \begin{itemize} \small
+        \item \(B_0 = \{\langle pt(w,x,y,z), true\rangle\}\)
+        \item \(B_1 = \{\langle pt(w,x,y,z), w\wedge(x\vee y\wedge z)\rangle\} \)
+        \item \(gfp(S) = B_2 = B_1\)
+    \end{itemize}
+
+    \item If the goal pt(w,x,y,z) is called with w ground and either x or both y
+        and z ground, then the mode requirements of $\leq$ and $>$ are satisfied
+
+\end{itemize}
+
+\end{minipage}
+
+
+
+\vspace{\fill}
+
+\end{frame}
+
+\begin{frame}{Backward mode inference 5}
+\vspace{\fill}
+
+{\small
+ Safe calling modes are calculated by propagating
+requirement right-to-left across each clause:
+\begin{eqnarray*}
+  \lefteqn{pt(T1, M, T2, H) \mbox{:-}} \\
+   && \begin{array} {rrrrr}
+      & T1 = [X|Xs], & T2=[X|L] , & M\leq X , & pt(Xs,M,L,H).  \\
+     \uparrow &  \uparrow &  \uparrow &  \uparrow   & \uparrow \\
+     e_0 &  e_1 &  e_2 &   e_3 &   e_4
+   \end{array}
+\end{eqnarray*}
+\begin{tightitemize}
+    \item \(e_4=true\)
+    \item \(e_3=((Xs\Leftrightarrow(L\wedge H))\Rightarrow e_4) =
+            true\)
+    \item \( e_2 = ((M\wedge X) \wedge e_3) = (M\wedge X) \)
+            backward execution of built-in
+    \item \( e_1 = ((T2\Leftrightarrow (X\wedge L))\Rightarrow e_2) \)
+            backward unification
+    \item \( e_0 = ((T1\Leftrightarrow (X\wedge Xs)) \Rightarrow e_1)\)
+    \item Moding requirement for the clause is $\forall X (\forall Xs( \forall
+L(e_0))) = (M\wedge (T1\vee T2))$
+\end{tightitemize}
+}
+
+ \vspace{\fill}
+\end{frame}
+
+\begin{frame}{Basic ingredients of the analysis} \vspace{\fill}
+
+\begin{tightitemize}
+\item Input program: partition program;
+
+\item Assertions: $\mathcal{A}( x \leq y )=  x\wedge y$ and
+$\mathcal{A}( x > y )=  x\wedge y$;
+
+\item Abstract domain: $Pos$;
+\begin{eqnarray*}
+\alpha(\Theta) &=& \bigwedge_{\theta\in\Theta} \bigwedge_{x\in
+dom(\theta)} ( x\Leftrightarrow \bigwedge var(\theta(x)) )\\
+\gamma(f) &=& \{\theta \mid \alpha(\{\theta\}) \models f\}
+\end{eqnarray*}
+
+\item Basic operations
+    \begin{tightitemize}
+        \item Conjunction ($\wedge$) and Disjunction ($\vee$);
+        \item Existential and universal projection ($\exists_x$) and
+        ($\forall_x$);
+        \item Pseudo-complement ($\Rightarrow$);
+        \item Backward unification ($\alpha({E}) \Rightarrow f$)
+    \end{tightitemize}
+\end{tightitemize}
+\vspace{\fill}
+\end{frame}
+
+%\comments
+{
+\begin{frame}{GFP for backward analysis on cHa}
+\vspace{\fill}
+
+\[ \mathcal{D}_{\mathcal{A}}(D) = \bigcup \left\{ E
+\left| \,
+\begin{array}{@{}clc@{}}
+\forall & [{p(\vec{x}) \neck e}]_{\approx} \in E & . \\
+\forall & p(\vec{x}) \neck E, p_1(\vec{x}_1), \ldots, p_n(\vec{x}_n) \in P & . \\
+& e_{n+1} = \top & \wedge \\
+& e_{i} = D(p_i(\vec{x}_i)) \wedge (S(p_i(\vec{x}_i)) \Rightarrow e_{i+1})
+& \wedge \\
+& e_0 = \mathcal{A}(p(\vec{x})) \wedge (\alpha(E) \Rightarrow e_1) &\wedge \\
+& e \models \forall_{-\vec{x}}(e_0) &
+\end{array}
+\right. \right\}
+\]
+where
+\begin{tightitemize}
+    \item $S(p(\vec{x}))$ is the success pattern for $p(\vec{x})$;
+    \item $D(p(\vec{x}))$ is the demand for $p(\vec{x})$;
+\end{tightitemize}
+
+\vspace{\fill}
+\end{frame}
+}
+
+
+\begin{frame}{Pseudo-complement}
+\vspace{\fill}
+
+Step of calculating the \textit{weakest} condition that when
+conjoined with $d_i \wedge s_i$ implies $e_{i+1}$, is the very
+heart of backward analysis.
+
+For $Pos$, computing the weakest $e_i$ reduces to applying the
+$\Rightarrow$ operator, but more generally, this step amounts to
+applying the pseudo-complement operator.
+
+\vspace{\fill}
+\end{frame}
+
+
+
+\begin{frame}{Precision tiny benchmarks}
+
+{\small \begin{center}
+\begin{tabular}{l|l|c}
+\textit{benchmark} & \textit{predicate} & \textit{mode} \\
+
+\cline{1-3}
+dnf   & go & $true$ \\
+    & dnf($x_1,x_2$) & $true$ \\
+    & norm($x_1,x_2$) & $true$ \\
+    & literal($x_1$) & $true$ \\
+
+\cline{1-3}
+queens   & noattack($x_1,x_2,x_3$) & $x_1 \land x_2 \land x_3$ \\
+      & safe($x_1$) & $x_1$ \\
+      & delete($x_1,x_2,x_3$) & $true$ \\
+      & perm($x_1,x_2$) & $true$ \\
+      & queens($x_1,x_2$) & $x_1\lor x_2$ \\
+
+\cline{1-3}
+treesort  & tree\_to\_list\_aux($x_1,x_2,x_3$) & $true$ \\
+      & tree\_to\_list($x_1,x_2$) & $true$ \\
+      & list\_to\_tree($x_1,x_2$) & $x_1$ \\
+      & insert\_list($x_1,x_2,x_3$) & $x_1 \land x_2$ \\
+      & insert($x_1,x_2,x_3$) & $x_1 \land (x_2\lor x_3)$ \\
+      & treesort($x_1,x_2$) & $x_1$
+\end{tabular}
+\end{center}}
+
+\end{frame}
+
+\begin{frame}{Speed on medium benchmarks}
+\vspace{\fill}
+
+{\footnotesize
+\begin{tabular}{@{}r|@{}r|@{\,\,}r@{\,\,}r@{\,\,}r@{\,\,}r@{\,\,}r|@{}r|@{\,\,}r@{\,\,}r@{\,\,}r@{\,\,}r@{}}
+{\it file} & {\it size} & {\it abs} & {\it lfp} & {\it gfp} & {\it
+sum} &
+{\it file} & {\it size} & {\it abs} & {\it lfp} & {\it gfp} & {\it sum} \\
+\cline{1-12}
+%astar&100&10&10&0&20 &
+%tictactoe&258&20&10&10&40\\
+%fft&104&20&0&10&30 &
+%jons2&261&20&10&0&30\\
+%knight&105&10&0&0&10 &
+%kalah&269&30&10&20&60\\
+%browse\_wamcc&106&10&0&0&10 &
+%draw&289&70&91&40&201\\
+%cal\_wamcc&108&10&10&0&20 &
+%cs\_r&311&40&20&10&70\\
+%
+%life&110&10&10&10&30 &
+%reducer&320&40&30&0&70\\
+%crypt\_wamcc&113&10&0&0&10 &
+%sdda&336&20&21&0&41\\
+cry\_mult&118&10&10&10&30 &
+bryant&349&30&120&21&171\\
+browse&125&10&10&0&20 &
+ga&363&50&30&20&100\\
+bid&128&10&10&0&20 &
+neural&378&30&10&0&40\\
+
+disj\_r&148&30&0&10&40 &
+press&381&30&20&0&50\\
+consultant&151&20&0&10&30 &
+peep&414&50&20&10&80\\
+ncDP&156&10&10&0&20 &
+nbody&421&40&20&20&80\\
+tsp&162&30&20&10&60 &
+eliza&432&50&20&0&70\\
+elex\_scanner&165&20&10&0&30 &
+read&434&40&20&10&70\\
+
+robot&165&10&10&0&20 &
+simple\_analyzer&512&90&701&20&811\\
+sorts&172&0&10&10&20 &
+ann&547&50&30&10&90\\
+cs2&175&30&10&10&50 &
+diffsimpsv&681&61&100&0&161\\
+scc&175&10&141&0&151 &
+arch1&692&50&40&10&100\\
+bp0-6&201&20&10&0&30 &
+asm&800&60&40&30&130\\
+
+bnet&205&20&20&0&40 &
+poker&962&81&70&10&161\\
+jons&222&40&0&10&50 &
+pentomino&981&50&40&80&170\\
+mathlib&226&10&10&0&20 &
+chat&1037&411&1422&1082&2915\\
+intervals&230&20&10&10&40 &
+sim\_v5-2&1308&80&70&0&150\\
+barnes\_hut&240&40&30&40&110 & semigroup&2328&180&90&60&350
+\end{tabular}}
+
+
+\vspace{\fill}
+\end{frame}
+
+
+\begin{frame}{Determinacy inference 1}
+\vspace{\fill}
+
+Determinacy is useful in sequential and parallel implementations
+of logic programming languages.
+
+A goal is determinate if it has at most one solution and that
+solution is produced only once.
+
+Determinacy inference is composed of two components: exclusion
+condition synthesis and determinacy condition synthesis.
+
+An exclusion condition, if satisfied a call, ensures that the call
+can only succeed with at most one matching clause.
+
+\vspace{\fill}
+\end{frame}
+
+\begin{frame}{Determinacy inference 2: two related abstractions}
+\vspace{\fill}
+
+\begin{minipage}[t]{.45\textwidth}
+Norm $\nu$:
+\begin{itemize}
+    \item depth k abstraction
+    \item size abstraction:
+    \[
+\upright{t}\upright \; =
+\left\{\begin{array}{ll} t & \mbox{if $t\in{\it Var}$}\\
+  1+ \upright{t_2}\upright & \mbox{if $t=[t_1|t_2]$}\\
+  0 & \mbox{otherwise}\\
+\end{array}\right.
+\]
+\end{itemize}
+\end{minipage} \hspace{\fill}
+\begin{minipage}[t]{.45\textwidth}
+Rigidity dependency $\alpha_{rigid'_\nu}$:
+\begin{itemize}
+    \item $rigid_\nu(t)$  holds iff $\nu(t)=\nu(\theta(t))$ for any
+    $\theta$;
+    \item $rigid'_\nu$ is any predicate such that
+    $rigid'_\nu(t)\Rightarrow rigid_\nu(t)$.
+\end{itemize}
+
+\end{minipage}
+
+Galois insertion:
+    \[ \begin{array}{rl}
+\gamma_{rigid'_{\nu}}(f) = & \{ \theta \in Sub \mid \forall
+\kappa \in Sub . assign(\kappa \circ \theta) \models f \} \\
+\alpha_{rigid'_{\nu}}(\Theta) = & \wedge \{ f \in Pos \mid \Theta
+\subseteq \gamma_{rigid'_{\nu}}(f) \} \end{array}\]
+\[ assign(\theta) = \wedge \{ x \Leftrightarrow rigid'_{\nu}(\theta(x))
+\mid x \in dom(\theta) \}\]
+
+ \vspace{\fill}
+\end{frame}
+
+\begin{frame}{Determinacy inference 3: computing success pattern}
+\vspace{\fill}
+
+\begin{minipage}[t]{.45\textwidth}
+{\tt \footnotesize 
+\begin{tabbing} 12345678\=\kill (1) append(Xs, Ys, Zs) :- \\
+\> Xs = [], Ys = Zs. \\
+(2) append(Xs, Ys, Zs) :- \\
+\> Xs = [X|Xs1], Zs = [X|Zs1], \\
+\> append(Xs1, Ys, Zs1).\\
+(3) rev(Xs,Ys) :- \\
+\> Xs = [], Ys = []. \\
+(4) rev(Xs,Ys) :- \\
+\> Xs  = [X|Xs1], Ys2 = [X], \\
+\> rev(Xs1, Ys1), \\
+\> append(Ys1, Ys2, Ys).
+\end{tabbing}}
+\end{minipage} \hspace{\fill}
+\begin{minipage}[t]{.45\textwidth}
+\[
+\begin{array}{@{}l@{\quad}l@{}}
+1 & \mathtt{append}(x_1, x_2, x_3)\neck\\
+  & (x_1 = 0) \wedge (x_2\geq 0) \wedge (x_2 = x_3)\\
+2 & \mathtt{append}(x_1, x_2, x_3)\neck\\
+  & (x_1 \geq 1) \wedge (x_2 \geq 0) \wedge (x_1 + x_2 = x_3) \\
+3 & \mathtt{rev}(x_1, x_2)\neck\\
+  & (x_1 =0 ) \wedge (x_2 =0) \\
+4 & \mathtt{rev}(x_1, x_2)\neck\\
+  & (x_1 \geq 1) \wedge (x_1 = x_2)
+\end{array}
+\]
+\end{minipage}
+
+
+\vspace{\fill}
+\end{frame}
+
+
+\begin{frame}{Determinacy inference 4: mutual exclusion conditions}
+\vspace{\fill}
+
+Let the success patterns of two clauses $C_1$ and $C_2$ be
+\(p(\vec{x}) \mbox{:-} c_1\) and \(p(\vec{x}) \mbox{:-} c_2\).
+
+If $\wedge Y$ and  \((\exists_{-Y}(c_1) \wedge \exists_{-Y}(c_2) =
+false \) then $C_1$ and $C_2$ are mutually exclusive.
+
+\[
+\begin{array}{c}
+\begin{array}{@{}l@{\quad}l@{}}
+C_1 & \mathtt{append}(x_1, x_2, x_3)\neck (x_1 = 0) \wedge (x_2\geq 0) \wedge (x_2 = x_3)\\
+C_2 & \mathtt{append}(x_1, x_2, x_3)\neck (x_1 \geq 1) \wedge (x_2
+\geq 0) \wedge (x_1 + x_2 = x_3)
+\end{array} \\
+\Downarrow \\
+  \begin{array}{rcl}
+  \exists_{-\{x_2,x_3\}}(c_1) &=& (x_2\geq 0)\wedge (x_2 = x_3) \\
+\exists_{-\{x_2,x_3\}}(c_2) &=& (x_2\geq 0)\wedge (x_2 < x_3)
+\end{array}\\
+\Downarrow\\
+
+\mbox{$C_1$ and $C_2$ are mutually exclusive when $x_2$ and $x_3$
+are rigid.}
+
+
+
+\end{array}
+\]
+
+
+\vspace{\fill}
+\end{frame}
+
+\begin{frame}{Determinacy condition inference 5}
+\vspace{\fill}
+
+
+Mutual exclusion conditions:
+\begin{eqnarray*}
+  append(x_1,x_2,x_3) &:& x_1\vee x_2\wedge x_3 \\
+  rev(x_1,x_2) &:& x_1 \vee x_2
+\end{eqnarray*}
+
+Synthesizing determinacy conditions: feeding mutual exclusion
+conditions as assertions for backward analysis.
+
+\begin{eqnarray*}
+  \mathcal{A}(append(x_1,x_2,x_3)) &=& x_1\vee x_2\wedge x_3 \\
+  \mathcal{A}(rev(x_1,x_2)) &=& x_1 \vee x_2
+\end{eqnarray*}
+
+\vspace{\fill}
+\end{frame}
+
+\begin{frame}{Determinacy inference 6: Precision}
+
+{\footnotesize
+
+\begin{tabular}{l|l|c|c}
+\textit{benchmark} & \textit{predicate} & \textit{exclusion
+condition}
+& \textit{determinacy condition} \\
+
+\hline treesort  & \texttt{tree\_to\_list\_aux}($x_1,x_2,x_3$) &
+$x_1$ & $x_1$\\[\mindthegap]
+      & \texttt{tree\_to\_list}($x_1,x_2$) & $\true$ & $x_1$\\[\mindthegap]
+      & \texttt{list\_to\_tree}($x_1,x_2$) & $\true$ & $x_1$\\[\mindthegap]
+      & \texttt{insert\_list}($x_1,x_2,x_3$) & $x_1$ & $x_1\wedge x_2$\\[\mindthegap]
+      & \texttt{insert}($x_1,x_2,x_3$) &  $x_1\wedge(x_2\vee x_3)$ & $x_1\wedge(x_2\vee x_3)$\\[\mindthegap]
+      & \texttt{treesort}($x_1,x_2$) & $\true$ & $x_1$ \\[\mindthegap]
+
+\cline{1-4}
+queens   & \texttt{noattack}($x_1,x_2,x_3$) & $x_2$ & $x_2$\\[\mindthegap]
+      & \texttt{safe}($x_1$) & $x_1$ & $x_1$\\[\mindthegap]
+      & \texttt{delete}($x_1,x_2,x_3$) & $\false$ & $\false$ \\[\mindthegap]
+      & \texttt{perm}($x_1,x_2$) & $x_1\vee x_2$ & $\false$ \\[\mindthegap]
+      & \texttt{queens}($x_1,x_2$) & $\true$ & $\false$\\[\mindthegap]
+
+\cline{1-4}
+permsort  & \texttt{select}($x_1,x_2,x_3$) & $\false$ & $\false$ \\[\mindthegap]
+      & \texttt{ordered}($x_1$) & $x_1$ & $x_1$ \\[\mindthegap]
+      & \texttt{perm}($x_1,x_2$) & $x_1\vee x_2$ & $\false$ \\[\mindthegap]
+      & \texttt{sort}($x_1,x_2$) & $\true$ & $\false$\\[\mindthegap]
+
+\cline{1-4} serialize & \texttt{arrange0}($x_1,x_2$) & $x_1\vee x_2$ & $x_1$ \\[\mindthegap]
+      & \texttt{numbered}($x_1$, $x_2$, $x_3$) & $x_1$ & $x_1$ \\[\mindthegap]
+      & \texttt{palin}($x_1$) & $\true$ & $\true$\\[\mindthegap]
+      & \texttt{pairlists}($x_1$, $x_2$, $x_3$) & $x_1\vee x_2\vee x_3$ & $x_1\vee x_2\vee x_3$ \\[\mindthegap]
+    & \texttt{serialize0}($x_1,x_2$) & $\true$ & $x_1\wedge x_2$ \\[\mindthegap]
+      & \texttt{split0}($x_1$, $x_2$, $x_3$, $x_4$) & $x_1\wedge x_2$ & $x_1\wedge x_2$\\[\mindthegap]
+      & \texttt{go}($x_1$) & $\true$ & $\false$
+\end{tabular}
+}
+
+\end{frame}
+
+\begin{frame}{Determinacy inference 7: Timing 1}
+\vspace{\fill}
+
+\begin{tabular}{@{}r@{}|r@{\,\,}r@{\,\,}r|r@{\,\,}r@{\,\,}r@{}} &
+\multicolumn{3}{c}{\emph{argument-size}} &
+\multicolumn{3}{|c}{\emph{depth-k}} \\
+\emph{file} &
+\emph{succ} & \emph{lfp} & \emph{gfp} & \emph{succ} & \emph{lfp} & \emph{gfp} \\
+\hline
+boyer & 1666 & 591 & 60 & 441 & 360 & 50 \\
+bryant & 7522 & 261 & 90 & 371 & 321 & 80 \\
+chat\_80 & 67393 & 2153 & 431 & 494578 & 4977 & 631 \\
+ga & 2146 & 161 & 40 & 2814 & 290 & 40 \\
+ili & 2314 & 450 & 111 & 1222 & 531 & 100 \\
+ime & 653 & 140 & 40 & 120 & 161 & 40 \\
+nand & 17921 & 1682 & 421 & 841 & 801 & 260 \\
+nbody & 877 & 191 & 30 & 241 & 301 & 80
+\end{tabular}
+\vspace{\fill}
+
+\end{frame}
+
+\begin{frame}{Determinacy inference 8: Timing 2}
+\vspace{\fill}
+
+\begin{tabular}{@{}r@{}|r@{\,\,}r@{\,\,}r|r@{\,\,}r@{\,\,}r@{}}  &
+\multicolumn{3}{c}{\emph{argument-size}} &
+\multicolumn{3}{|c}{\emph{depth-k}} \\
+\emph{file} &  \emph{succ} & \emph{lfp} & \emph{gfp} & \emph{succ}
+& \emph{lfp} & \emph{gfp} \\ \hline
+peep &  404 & 170 & 30 & 761 & 441 & 70 \\
+peval & 6938 & 621 & 100 & 4466 & 611 & 90 \\
+press & 584 & 251 & 40 & 320 & 381 & 70 \\
+reducer & 7867 & 270 & 50 & 190 & 301 & 50 \\
+rubik & 30150 & 420 & 70 & 571 & 3755 & 221 \\
+sim & 10270 & 561 & 171 & 35411 & 611 & 100 \\
+sim\_v5-2 & 2948 & 581 & 170 & 491 & 701 & 180 \\
+trs & 13174 & 280 & 91 & 321 & 450 & 100
+\end{tabular}
+\vspace{\fill}
+
+\end{frame}
+
+\begin{frame}{Backward analysis on Non-cHa domains}
+\vspace{\fill}
+
+For non-cHa domains:
+\begin{tightitemize}
+    \item Pseduo-complement ($s \Rightarrow f$) does not exist.
+    \item Weakest pre-condition ($\alpha(E)\Rightarrow f$) does not exist.
+\end{tightitemize}
+
+Solution: compute all maximal pre-conditions;
+\begin{tightitemize}
+    \item Replacing Pseduo-complement ($s \Rightarrow f$) with an
+    operational that returns all maximal pre-condition $f'$ such
+    that $f'\wedge s\sqsubseteq f$;
+    \item Replacing ($\alpha(E)\Rightarrow f$) with an operation
+    that computes all maximal $f'$ such that $\theta\circ
+    mgu(\theta(E)) \in\gamma(f)$ whenever $\theta\in\gamma(f')$.
+\end{tightitemize}
+
+\vspace{\fill}
+\end{frame}
+
+\begin{frame}{Type signature inference 1: analysis inputs}
+
+\pspace
+
+\begin{itemize}
+\item The program - normalised \item Type assertions
+\begin{eqnarray*}
+    \mathcal{A}(x=<y) &=& x\in{n\color{light}umber}\land y\in{n\color{light}umber}\\
+    \mathcal{A}(x>y) &=& x\in{n\color{light}umber}\land y\in{n\color{light}umber}\\
+    \mathcal{A}(pt(xs,x,ys,zs)) & = & true
+%   \\ \mathcal{A}(qs(xs,ys,zs))  & = & true
+\end{eqnarray*}
+
+\item  Type rules
+\begin{eqnarray*}
+ \tlist(\beta) & \Rightarrow & [~] \\
+ \tlist(\beta) & \Rightarrow & [\beta~|~\tlist(\beta)]
+\end{eqnarray*}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Type signature inference 2: backward unification}
+
+\pspace
+
+Given an equational constraint $E$ and a type post-condition
+$\phi$, computes a type pre-condition for $\langle E,\phi\rangle$.
+
+\pspace
+
+This is reduced into computing conjunctive type pre-conditions for
+a single equation $x=t$ and a single conjunctive type
+post-conditions $\mu$.
+
+\pspace
+
+\end{frame}
+
+\begin{frame}{Type signature inference 3: pre-conditions for $\langle x=t,\mu\rangle$}
+
+\pspace
+
+\begin{itemize}
+\item [$\bullet$] Return $\mu$; \item [$\bullet$] Add $(x\in
+\tau)$ to and remove constraints on variables $y\in Var(t)$ from
+$\mu$ if {$\tau$ is a type such that $t\in{\tau}$ implies
+$y\in\mu(y)$};
+\[\langle xs=[y|xs'], x\in{n}\land y\in{n}\rangle
+    -- x\in{n}\land xs\in{l}({n})
+\]
+\item [$\bullet$] Add constraint $\nu$ on variables $y\in Var(t)$
+to and remove constraint on $x$ from $\mu$ if {$\nu$ is a
+constraint that guarantees $x\in\mu(x)$}.
+\[
+\langle xs=[y|xs'], x\in{n}\land xs\in{l}({n})\rangle --
+ x\in{n}\land y\in{n}\land xs'\in{l}({n})
+\]
+\end{itemize}
+
+\pspace
+
+\end{frame}
+
+\begin{frame}{Type signature inference 4: backward unification}
+
+\pspace
+
+The pre-condition for $\langle E,\phi\rangle$ is obtained by
+rewriting $\langle E,\mu\rangle$ for each conjunctive type
+constraint $\mu$ in $\phi$ using
+
+\begin{eqnarray*}
+\langle\mu,E\rangle &\leadsto& \langle\mu,\emptyset\rangle \\
+\langle\mu,E\cup\{x=t\}\rangle &\leadsto&
+    \langle(x\in{type\_low}(\mu,t))\land\exists_{Vars(t)}(\mu),E\rangle \label{rw:2}\\
+\langle\mu,E\cup\{x=t\}\rangle &\leadsto&
+    \langle\exists_{x}(\mu)\land\nu,E\rangle
+    ~\mbox{where $\nu{\in}{tc\_low}(\mu(x),t)$}
+\end{eqnarray*}
+
+\pspace
+
+\end{frame}
+
+\begin{frame}{Type signature inference 5: ${type\_low}(\mu,t)$}
+
+Compute $\tau$ such that $t\in{\tau}$ implies $y\in\mu(y)$ for
+$y\in Var(t)$.
+
+\pspace
+
+\[ t=[x|xs] \qquad \mu=x\in{n}\land xs\in {l}({n}\tor{l}({n})) \]
+
+\begin{displaymath}
+\begin{array}{cclcccr}
+\underline{{l}({{n}})} &\ni & [ & x & | & xs & ]\\
+   \uparrow         &    &   & {\in} &  & {\in} &\\
+   |         &    & [ & {n} & |  & {l}({n}\tor{l}({n})) & ]\\
+   |         &    &   & \| &  & \| &\\
+{\color{blue}\beta/{n}} &  &   & {\color{blue}\beta/{n}} &  & {\color{blue}\beta/({n}\tor{l}({n}))} &\\
+   |     &    &   & \| &  & \| &\\
+{l}(\beta) &\Rightarrow & [ & \beta & | & {l}(\beta) & ]
+\end{array}
+\end{displaymath}
+
+\pspace
+
+\end{frame}
+
+\begin{frame}{Type signature inference 6: ${tc\_low}(\tau,t)$}
+
+\pspace
+
+Compute a type constraint $\psi$ on variables in $t$ that
+guarantees $t\in{\tau}$.
+
+
+\pspace
+
+\[ t=[x|xs] \qquad \tau={l}({n}) \]
+
+\begin{displaymath}
+\begin{array}{cclcccr}
+{l}({{n}}) &\ni & [ & x & | & xs & ]\\
+   |         &    &   & \updownarrow &  & \updownarrow &\\
+   |         &    &  & \underline{x\in{n}} & \land  & \underline{xs\in{l}({n})} & \\
+   |         &    &   & \updownarrow &  & \updownarrow &\\
+{l}({n}) &\Rightarrow & [ & {n} & | & {l}({n}) & ]\\
+   | & & & & & &\\
+{l}(\beta) &\Rightarrow & [ & \beta & | & {l}(\beta) & ]
+\end{array}
+\end{displaymath}
+
+
+\pspace
+
+\end{frame}
+
+
+\begin{frame}{Type signature inference 7: precision}
+
+\pspace
+
+\begin{tabular}{l|l|c}
+\textit{Program} & \textit{Predicate} & \textit{Type Signature} \\
+\cline{1-3}
+quicksort &  $append(x_1,x_2,x_3)$& ${\it true}$ \\
+    & $partition(x_1,x_2,x_3,x_4)$ & $\phi_2$\\
+    & $quicksort(x_1,x_2)$ & $(x_1\in {l}({n})) $\\
+
+\cline{1-3}
+treesort& $tree\_to\_{list}\_aux(x_1,x_2,x_3)$ & ${\it true}$ \\
+    & $tree\_to\_{list}(x_1,x_2)$ & ${\it true}$ \\
+    & $insert(x_1,x_2,x_3)$ & $\phi_3$\\
+    & $insert\_{list}(x_1,x_2,x_3)$ & $(x_1\in {l}({n})\wedge x_2\in {\ttree}({n})) $\\
+    & ${list}\_to\_tree(x_1,x_2)$ & $(x_1\in {l}({n})) $\\
+    & $treesort(x_1,x_2)$ & $(x_1\in {l}({n})) $\\
+\end{tabular}
+
+$\phi_2=(x_2\in {n}\wedge x_3\in {l}({n})\wedge x_4\in
+{l}({n}))\vee(x_1\in {l}({n})\wedge x_2\in {n}) $\\
+ $\phi_3=(x_1\in
+{n}\wedge x_3\in {\ttree}({n}))\vee(x_1\in {n}\wedge x_2\in
+{\ttree}({n}))$.
+
+\pspace
+
+\end{frame}
+
+\begin{frame}{Other work on backward analysis for logic programs}
+\vspace{\fill}
+
+\begin{itemize}
+    \item Backward pair-sharing (Lu \& King)
+    \item Backward set-sharing (Li \& Lu)
+    \item Suspension inference (King \& Genaim)
+    \item Termination inference (Genaim \& Codish)
+    \item Backward analysis via program transformation (Gallagher)
+\end{itemize}
+
+\vspace{\fill}
+\end{frame}
+
+
+\end{document}

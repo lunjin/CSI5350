@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Mon Nov 27 16:29:40 EST 2023
+outputDir=
+markDer=true
+mainTexFile=Sign.tex
+bibrefDir=
+builderNum=2
+outputFile=Sign.pdf
+makeIndSty=
+srcDir=
+markTmpDer=true
+tempDir=tmp
+outputFormat=pdf
+langSpell=en
